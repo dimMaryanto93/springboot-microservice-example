@@ -1,0 +1,20 @@
+# maven project
+target/
+
+# java project
+.class
+bin
+out
+
+# filesystem
+.DS_Store
+
+# intellij idea
+.idea/
+*.iml
+*.ipl
+
+# eclipse project
+.project
+.settings/
+.classpath
