@@ -1,6 +1,8 @@
 # Belajar microservice dengan SpringBoot
 
-Aplikasi monolint: 
+Aplikasi monolint: aplikasi web pada umumnya yaitu mengakses database share atau istilah lainnya yaitu distributed database, dengan gambaran sebagai berikut:
+
+
 
 ## Aplikasi microservice: one service per database
 
