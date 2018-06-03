@@ -1,0 +1,27 @@
+version: '3.6'
+services:
+  registration_db:
+    image: mysql:5.7
+    ports:
+     - "3301:3306"
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_DATABASE=registration
+     - MYSQL_USER=mits
+     - MYSQL_PASSWORD=mits
+    volumes:
+     - registration_data:/var/lib/mysql
+  usermanagement_db:
+    image: mysql:5.7
+    ports:
+     - "3302:3306"
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_DATABASE=usermanagement
+     - MYSQL_USER=mits
+     - MYSQL_PASSWORD=mits
+    volumes:
+     - user_data:/var/lib/mysql
+volumes:
+  registration_data:
+  user_data:
