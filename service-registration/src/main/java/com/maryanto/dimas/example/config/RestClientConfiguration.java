@@ -10,6 +10,8 @@ public class RestClientConfiguration {
 
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+        RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+//        restTemplate.getInterceptors().add()
+        return restTemplate;
     }
 }
