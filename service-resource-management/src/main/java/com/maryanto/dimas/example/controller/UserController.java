@@ -22,12 +22,6 @@ public class UserController {
 
     private final static Logger console = LoggerFactory.getLogger(UserController.class);
 
-    /**
-     * don't use for rest template because the principal is NullPointerException
-     *
-     * @param principal
-     * @return
-     */
     @GetMapping("/me")
     public ResponseEntity<User> findByEmail(Principal principal) {
         console.info("user logged in : {}", principal.getName());
