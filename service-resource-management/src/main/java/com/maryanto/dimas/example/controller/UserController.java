@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 
 @RestController
@@ -23,6 +24,7 @@ public class UserController {
 
     /**
      * don't use for rest template because the principal is NullPointerException
+     *
      * @param principal
      * @return
      */
@@ -53,12 +55,16 @@ public class UserController {
         if (user.getId() != null) {
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Transactional
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") User user) {
-        user = userRepository.save(user);
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
+
+        userRepository.updateEmail(user.getEmail(), id);
+        user = userRepository.findOne(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

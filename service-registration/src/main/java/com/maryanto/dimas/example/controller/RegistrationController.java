@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -40,5 +42,11 @@ public class RegistrationController {
                 ),
                 HttpStatus.OK
         );
+    }
+
+    @PostMapping("/updateGeneral/{id}")
+    public ResponseEntity<Registration> updateRistration(@RequestBody User user, @PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response) {
+        user = userService.updateUser(id, user, request.getHeader("Authorization"));
+        return new ResponseEntity<>(new Registration(null, user, Date.valueOf(LocalDate.now())), HttpStatus.OK);
     }
 }

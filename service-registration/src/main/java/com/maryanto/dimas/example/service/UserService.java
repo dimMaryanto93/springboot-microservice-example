@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,5 +35,16 @@ public class UserService {
                 .append("/api/users/created").toString();
         ResponseEntity<User> responseEntity = restTemplate.postForEntity(uri, user, User.class);
         return responseEntity.getBody();
+    }
+
+    public User updateUser(Integer id, User user, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
+        HttpEntity<User> httpEntity = new HttpEntity<>(user, headers);
+
+        String uri = new StringBuilder(registrationApi)
+                .append("/api/users/").append(id).toString();
+        ResponseEntity<User> userResponse = restTemplate.exchange(uri, HttpMethod.PUT, httpEntity, User.class);
+        return userResponse.getBody();
     }
 }
