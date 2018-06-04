@@ -26,11 +26,11 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/general")
-    public ResponseEntity<Registration> getRegistration(Principal principal) {
+    public ResponseEntity<Registration> getRegistration(Principal principal, @RequestHeader("Authorization") String token) {
         return new ResponseEntity<>(
                 new Registration(
                         1,
-                        userService.getUser(principal.getName()),
+                        userService.getUser(principal.getName(), token),
                         Date.valueOf("2018-10-10")
                 ), HttpStatus.CREATED);
     }
@@ -49,10 +49,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/updateGeneral/{id}")
-    public ResponseEntity<Registration> updateRistration(@RequestBody User user, @PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response) {
-        String token = request.getHeader("Authorization");
+    public ResponseEntity<Registration> updateRistration(@RequestBody User user, @PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response, @RequestHeader("Authorization") String token) {
         console.info("authorization : {}", token);
-        user = userService.updateUser(id, user, request.getHeader("Authorization"));
+        user = userService.updateUser(id, user, token);
         return new ResponseEntity<>(new Registration(null, user, Date.valueOf(LocalDate.now())), HttpStatus.OK);
     }
 }

@@ -23,11 +23,14 @@ public class UserService {
 
     private final static Logger console = LoggerFactory.getLogger(UserService.class);
 
-    public User getUser(String username) {
+    public User getUser(String name, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
+        HttpEntity<User> httpEntity = new HttpEntity<>(headers);
         String uri = new StringBuilder(registrationApi)
-                .append("/api/users/byEmail?email=").append(username).toString();
-        User user = restTemplate.getForObject(uri, User.class);
-        return user;
+                .append("/api/users/me").toString();
+        ResponseEntity<User> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, User.class);
+        return responseEntity.getBody();
     }
 
     public User createUser(User user) {
