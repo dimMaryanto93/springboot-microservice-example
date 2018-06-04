@@ -3,6 +3,8 @@ package com.maryanto.dimas.example.controller;
 import com.maryanto.dimas.example.model.Registration;
 import com.maryanto.dimas.example.model.User;
 import com.maryanto.dimas.example.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/api/registration")
 public class RegistrationController {
+
+    private final static Logger console = LoggerFactory.getLogger(RestController.class);
 
     @Autowired
     private UserService userService;
@@ -46,6 +50,8 @@ public class RegistrationController {
 
     @PostMapping("/updateGeneral/{id}")
     public ResponseEntity<Registration> updateRistration(@RequestBody User user, @PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response) {
+        String token = request.getHeader("Authorization");
+        console.info("authorization : {}", token);
         user = userService.updateUser(id, user, request.getHeader("Authorization"));
         return new ResponseEntity<>(new Registration(null, user, Date.valueOf(LocalDate.now())), HttpStatus.OK);
     }

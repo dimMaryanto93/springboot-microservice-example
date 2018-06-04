@@ -61,8 +61,8 @@ public class UserController {
 
     @Transactional
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user, Principal principal) {
+        System.out.print(principal.getName());
         userRepository.updateEmail(user.getEmail(), id);
         user = userRepository.findOne(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
