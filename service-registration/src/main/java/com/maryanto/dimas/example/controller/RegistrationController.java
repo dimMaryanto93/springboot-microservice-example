@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.sql.Date;
 
 @RestController
@@ -19,11 +20,11 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/general")
-    public ResponseEntity<Registration> getRegistration() {
+    public ResponseEntity<Registration> getRegistration(Principal principal) {
         return new ResponseEntity<>(
                 new Registration(
                         1,
-                        userService.getUser("dimmaryanto@gmail.com", "password"),
+                        userService.getUser(principal.getName()),
                         Date.valueOf("2018-10-10")
                 ), HttpStatus.CREATED);
     }
