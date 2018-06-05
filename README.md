@@ -1,6 +1,6 @@
 # Belajar microservice dengan SpringBoot
 
-Aplikasi microservice: service per database
+Aplikasi microservice
 
 Biasanya aplikasi microservice menggunakan konesep _one service per database_ dengan gambaran sebagai berikut:
 
