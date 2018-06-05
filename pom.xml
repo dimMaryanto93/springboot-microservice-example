@@ -15,6 +15,7 @@
         <module>authserver-oauth2</module>
         <module>service-registration</module>
         <module>service-resource-management</module>
+        <module>flyway-migrations</module>
     </modules>
 
     <parent>

@@ -52,8 +52,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedMethods(ImmutableList.of("HEAD",
-                "GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowedMethods(
+                ImmutableList.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH")
+        );
         configuration.setAllowedOrigins(ImmutableList.of("*"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
