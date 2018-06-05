@@ -4,7 +4,7 @@ Aplikasi microservice
 
 Biasanya aplikasi microservice menggunakan konesep _one service per database_ dengan gambaran sebagai berikut:
 
-![konsep microservice](imgs/konsep-microservice.png)
+![konsep microservice](imgs/arsitektur-aplikasi.png)
 
 ## Flow microservice as per database
 
