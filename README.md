@@ -17,7 +17,8 @@ Berikut arsitektur aplikasi dengan menggunakan konsep microservice:
     "projectOwenerId" : 1
 }
 ```
-Dari json tersebut terdapat _property_ `projectOwner.id` jika anda perhatikan itu objectnya tidak lengkap karena mungkin secara database memang satu database tapi secara entity tidak contoh implementasinya seperti berikut:
+
+Dari json tersebut terdapat _property_ `projectOwenerId`, _property_ tersebut merupakan _primary key_ dari table `user` tetapi objectnya tidak ada di module registration karena mungkin secara database memang satu database tapi secara entity tidak contoh implementasinya seperti berikut:
 
 ```java
 // module registration
@@ -48,6 +49,35 @@ public class User{
     private List<Role> roles;
 
     // setter & getter
+}
+```
+
+4. Setelah mendapatkan data dari `database` tahap selanjutnya adalah mendapatkan object user berdasarkan property `projectOwnerId` dengan melewati protokol http bukan lewat database. kalau lewat database itu sama aja seperti aplikasi monolint (aplikasi web pada umumnya).
+5. Dengan menggunakan konsep ini jadi kita bisa meminimalisir duplikasi karena aplikasi udah di buat secara modular dan dengan tujuan yang jelas tidak campur-aduk jadi satu. Untuk menakses _service_ lain kita bisa menggunakan framework HttpClient yang terkenal di Spring yaitu `RestTemplate` seperti berikut contohnya:
+
+```java
+@GetMapping("/")
+public ResponseEntity responseBack(){
+    RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Authorization", token);
+    HttpEntity<User> httpEntity = new HttpEntity<>(headers);
+    String uri = new StringBuilder("http://localhost:8080").append("/api/users/me").toString();
+    return restTemplate.exchange(
+        uri, HttpMethod.GET, httpEntity, User.class
+    );
+}
+```
+
+6. Setelah itu maka hasilnya seperti berikut:
+```json
+{
+    "id": 1,
+    "projectName": "mandiri-mits",
+    "projectOwner" : {
+        "id" : 1,
+        "email": "dimmaryanto@gmail.com"
+    }
 }
 ```
 
