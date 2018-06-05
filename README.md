@@ -1,19 +1,56 @@
 # Belajar microservice dengan SpringBoot
 
-Aplikasi microservice
-
-Biasanya aplikasi microservice menggunakan konesep _one service per database_ dengan gambaran sebagai berikut:
+Berikut arsitektur aplikasi dengan menggunakan konsep microservice:
 
 ![konsep microservice](imgs/arsitketur-aplikasi.png)
 
-## Flow microservice as per database
+## Flow microservice
 
-1. `user agent (browser)` request akses **token** ke module `auth server`
-2. `auth server` check ke database `user management` user dan password valid atau invalid
-3. `auth server` response ke service `registratoin` dan mengirimkan `access_token` kemudian di simpan oleh `user agent (browser)`
-4. `user agent (browser)` request api `registration` yang include data user dari `resource management` service
-5. `registration service` membaca ke `registration database` kemudian mengirimkan request ke `resource management service` lalu service terserbut (`resource management`) membaca ke `resource management database`
-6. setelah mendapatkan hasil kirim response ke `registration service` kemudian service tersebut mengirimkan response kembail ke `user agent (browser)`
+1. Jika user belum login, maka browser jika mengakses _resource_ atau _service_ `registration` haruslah meminta _request token_ ke `auth server`. 
+2. Setelah di _check username_ dan _password_ valid maka `auth server` akan mengembalikan sebuah _token_ yang dikonversi ke format _JWT (JSON Web Token)_ yang kemudian di kirimkan ke `browser`. 
+3. Setelah mendapatkan `access_token` makan `browser` akan mengirimkan _request_ ke _service_ `registration`, kemudian _service_ melakukan operasi ke `database` dengan mengembalikan data json seperti berikut contohnya:
+
+```json
+{
+    "id": 1,
+    "projectName": "mandiri-mits",
+    "projectOwenerId" : 1
+}
+```
+Dari json tersebut terdapat _property_ `projectOwner.id` jika anda perhatikan itu objectnya tidak lengkap karena mungkin secara database memang satu database tapi secara entity tidak contoh implementasinya seperti berikut:
+
+```java
+// module registration
+
+public class Registration{
+    private Integer id;
+    private String projectName;
+    private Integer projectOwnerId;
+
+    // setter & getter
+}
+
+public class User{
+    private Integer id;
+    private String email;
+
+    // setter & getter
+}
+```
+
+```java
+// module resource management
+
+public class User{
+    private Integer id;
+    private String email;
+    private String password;
+    private List<Role> roles;
+
+    // setter & getter
+}
+```
+
 
 ## System Requirement
 
