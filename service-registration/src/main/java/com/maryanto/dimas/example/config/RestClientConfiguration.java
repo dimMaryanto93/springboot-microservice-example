@@ -12,6 +12,7 @@ public class RestClientConfiguration {
     public RestTemplate restTemplate() {
         HttpComponentsClientHttpRequestFactory httpComponent = new HttpComponentsClientHttpRequestFactory();
         RestTemplate restTemplate = new RestTemplate(httpComponent);
+
 //        restTemplate.getInterceptors().add()
         return restTemplate;
     }

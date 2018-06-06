@@ -19,7 +19,7 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/new")
     public Registration getRegistration(@RequestHeader("Authorization") String token) {
         return new Registration(1, userService.getUser("engineer.dimmaryanto@outlook.com", token), 1);
     }
