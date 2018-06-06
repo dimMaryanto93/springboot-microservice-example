@@ -11,6 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/created")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         user = userRepository.save(user);
         if (user.getId() != null) {
             return new ResponseEntity<>(user, HttpStatus.CREATED);
