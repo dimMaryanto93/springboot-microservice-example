@@ -4,14 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Registration {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Integer id;
+    @Transient
     private User user;
-    private Date createdDate;
+    @Column(name = "user_id")
+    private Integer userId;
 }
