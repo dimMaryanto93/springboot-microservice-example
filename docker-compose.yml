@@ -3,13 +3,26 @@ services:
   registration_db:
     image: mysql:5.7
     ports:
-     - "3306:3306"
+     - "3302:3306"
     environment:
      - MYSQL_ROOT_PASSWORD=root
-     - MYSQL_DATABASE=mits
+     - MYSQL_DATABASE=mist_registration
      - MYSQL_USER=mits
      - MYSQL_PASSWORD=mits
     volumes:
-     - mits_data:/var/lib/mysql
+     - mits_registration_data:/var/lib/mysql
+  resource-management-db:
+      image: mysql:5.7
+      ports:
+       - "3301:3306"
+      environment:
+       - MYSQL_ROOT_PASSWORD=root
+       - MYSQL_DATABASE=mist_resource_management
+       - MYSQL_USER=mits
+       - MYSQL_PASSWORD=mits
+      volumes:
+       - mist_resource_management_data:/var/lib/mysql
+
 volumes:
-  mits_data:
+  mits_registration_data:
+  mist_resource_management_data:
