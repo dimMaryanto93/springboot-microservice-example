@@ -4,6 +4,8 @@ Berikut arsitektur aplikasi dengan menggunakan konsep microservice:
 
 ![konsep microservice](imgs/arsitketur-aplikasi.png)
 
+![konsep database](imgs/arsitketur-database.png)
+
 ## Flow microservice
 
 1. Jika user belum login, maka browser jika mengakses _resource_ atau _service_ `registration` haruslah meminta _request token_ ke `auth server`. 
@@ -80,7 +82,6 @@ public ResponseEntity responseBack(){
     }
 }
 ```
-
 
 ## System Requirement
 
