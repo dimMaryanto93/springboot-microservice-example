@@ -53,8 +53,43 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/created")
+    /**
+     * menggunakan validasi
+     *
+     * @param userDto
+     * @param principal
+     * @return
+     */
+    @PostMapping("/submited")
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDto userDto, Principal principal) {
+        User user = new User(
+                null,
+                userDto.getEmail(),
+                userDto.getPassword(),
+                true,
+                Timestamp.valueOf(LocalDateTime.now()),
+                principal.getName(),
+                null,
+                null
+        );
+
+        user = userRepository.save(user);
+        if (user.getId() != null) {
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * tanpa menggunakan validasi
+     *
+     * @param userDto
+     * @param principal
+     * @return
+     */
+    @PostMapping("/created")
+    public ResponseEntity<User> saveUser(@RequestBody UserDto userDto, Principal principal) {
         User user = new User(
                 null,
                 userDto.getEmail(),
