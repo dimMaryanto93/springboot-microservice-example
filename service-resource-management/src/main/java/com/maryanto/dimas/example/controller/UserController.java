@@ -1,5 +1,6 @@
 package com.maryanto.dimas.example.controller;
 
+import com.maryanto.dimas.example.dto.UserDto;
 import com.maryanto.dimas.example.entity.User;
 import com.maryanto.dimas.example.repository.UserRepository;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/users")
@@ -51,7 +54,18 @@ public class UserController {
     }
 
     @PostMapping("/created")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserDto userDto, Principal principal) {
+        User user = new User(
+                null,
+                userDto.getEmail(),
+                userDto.getPassword(),
+                true,
+                Timestamp.valueOf(LocalDateTime.now()),
+                principal.getName(),
+                null,
+                null
+        );
+
         user = userRepository.save(user);
         if (user.getId() != null) {
             return new ResponseEntity<>(user, HttpStatus.CREATED);
@@ -62,10 +76,20 @@ public class UserController {
 
     @Transactional
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user, Principal principal) {
-        System.out.print(principal.getName());
-        userRepository.updateEmail(user.getEmail(), id);
-        user = userRepository.findOne(id);
+    public ResponseEntity<User> updateUser(
+            @PathVariable("id") Integer id,
+            @Valid @RequestBody UserDto userDto, Principal principal) {
+        User user = new User(
+                id,
+                userDto.getEmail(),
+                userDto.getPassword(),
+                userDto.isEnabled(),
+                userDto.getCreatedDate(),
+                userDto.getCreatedBy(),
+                Timestamp.valueOf(LocalDateTime.now()),
+                principal.getName()
+        );
+        user = userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
