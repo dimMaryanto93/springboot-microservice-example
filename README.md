@@ -70,6 +70,7 @@ public ResponseEntity responseBack(){
 ```
 
 6. Setelah itu maka hasilnya seperti berikut:
+
 ```json
 {
     "id": 1,
