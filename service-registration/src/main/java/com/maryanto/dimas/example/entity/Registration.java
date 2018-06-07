@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @AllArgsConstructor
@@ -15,8 +18,8 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Transient
-    private User user;
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Integer userId;
+    @Column(name = "project_name", length = 100, nullable = false)
+    private String projectName;
 }

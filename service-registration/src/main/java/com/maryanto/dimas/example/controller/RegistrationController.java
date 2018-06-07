@@ -1,6 +1,6 @@
 package com.maryanto.dimas.example.controller;
 
-import com.maryanto.dimas.example.entity.Registration;
+import com.maryanto.dimas.example.dto.RegistrationDto;
 import com.maryanto.dimas.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +20,8 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/new")
-    public Registration getRegistration(@RequestHeader("Authorization") String token) {
-        return new Registration(1, userService.getUser("engineer.dimmaryanto@outlook.com", token), 1);
+    public RegistrationDto getRegistration(@RequestHeader("Authorization") String token) {
+        return new RegistrationDto(1, userService.getUser(token), "Mandiri MITS");
     }
 
 }
