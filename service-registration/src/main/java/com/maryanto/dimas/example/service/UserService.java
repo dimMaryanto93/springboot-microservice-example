@@ -1,6 +1,6 @@
 package com.maryanto.dimas.example.service;
 
-import com.maryanto.dimas.example.model.User;
+import com.maryanto.dimas.example.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

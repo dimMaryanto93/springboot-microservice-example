@@ -1,6 +1,6 @@
 package com.maryanto.dimas.example.repository;
 
-import com.maryanto.dimas.example.model.User;
+import com.maryanto.dimas.example.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

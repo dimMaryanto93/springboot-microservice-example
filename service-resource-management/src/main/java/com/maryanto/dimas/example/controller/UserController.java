@@ -1,13 +1,12 @@
 package com.maryanto.dimas.example.controller;
 
-import com.maryanto.dimas.example.model.User;
+import com.maryanto.dimas.example.entity.User;
 import com.maryanto.dimas.example.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -23,6 +22,14 @@ public class UserController {
 
     private final static Logger console = LoggerFactory.getLogger(UserController.class);
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findByEmail(@PathVariable("id") Integer id) {
+        User user = userRepository.findOne(id);
+        if (user != null)
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/me")
     public ResponseEntity<User> findByEmail(Principal principal) {
         console.info("user logged in : {}", principal.getName());
@@ -33,7 +40,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @Secured("hasRole('ADMIN')")
     @GetMapping("/byEmail")
     public ResponseEntity<User> findByEmail(@RequestParam String email) {
         console.info("params: {}", email);

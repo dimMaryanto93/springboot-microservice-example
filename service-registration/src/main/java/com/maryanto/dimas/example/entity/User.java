@@ -1,4 +1,4 @@
-package com.maryanto.dimas.example.model;
+package com.maryanto.dimas.example.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -46,12 +46,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //language=MySQL
         String authoritiesByEmail = "select\n" +
-                "  u.email as username,\n" +
-                "  r.name  as role\n" +
-                "from users u\n" +
-                "  join management_user m on u.id = m.user_id\n" +
-                "  join roles r on r.id = m.role_id\n" +
-                "where u.email = ?";
+                "  usr.email as username,\n" +
+                "  role.name as role\n" +
+                "from users usr\n" +
+                "  join user_division usr_div on usr.id = usr_div.user_id\n" +
+                "  join divisions d on usr_div.division_id = d.id\n" +
+                "  join user_division_roles usr_role on d.id = usr_role.divisi_id\n" +
+                "  join roles role on usr_role.role_id = role.id\n" +
+                "where usr.email = ?";
 //        super.configure(auth);
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(usersByEmail)

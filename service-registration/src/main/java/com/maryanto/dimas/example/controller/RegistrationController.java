@@ -1,6 +1,6 @@
 package com.maryanto.dimas.example.controller;
 
-import com.maryanto.dimas.example.model.Registration;
+import com.maryanto.dimas.example.entity.Registration;
 import com.maryanto.dimas.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
