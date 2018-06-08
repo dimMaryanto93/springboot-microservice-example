@@ -3,6 +3,8 @@ package com.maryanto.dimas.example.service;
 import com.maryanto.dimas.example.entity.Registration;
 import com.maryanto.dimas.example.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,5 +22,9 @@ public class RegistrationService {
 
     public Registration findById(Integer id) {
         return repository.findOne(id);
+    }
+
+    public Page<Registration> list(Pageable page) {
+        return repository.findAll(page);
     }
 }
