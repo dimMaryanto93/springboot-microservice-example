@@ -64,7 +64,7 @@ public class RegistrationController {
             else if (httpClientError.getStatusCode() == HttpStatus.NOT_FOUND)
                 userDto = null;
             else if (httpClientError.getStatusCode().is5xxServerError())
-                throw new HttpClientErrorException(HttpStatus.BAD_GATEWAY);
+                throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         RegistrationDto registrationDto = new RegistrationDto(registration.getId(), userDto, registration.getProjectName());
