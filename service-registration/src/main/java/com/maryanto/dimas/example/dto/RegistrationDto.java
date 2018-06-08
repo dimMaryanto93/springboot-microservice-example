@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 public class RegistrationDto {
 
     private Integer id;
-    @NotNull
     private UserDto userId;
     @NotNull
     private String projectName;

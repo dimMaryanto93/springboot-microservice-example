@@ -18,4 +18,7 @@ public class RegistrationService {
         return repository.save(registration);
     }
 
+    public Registration findById(Integer id) {
+        return repository.findOne(id);
+    }
 }
