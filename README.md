@@ -12,6 +12,7 @@ Berikut arsitektur aplikasi dengan menggunakan konsep microservice:
 2. Setelah di _check username_ dan _password_ valid maka `auth server` akan mengembalikan sebuah _token_ yang dikonversi ke format _JWT (JSON Web Token)_ yang kemudian di kirimkan ke `browser`. 
 3. Setelah mendapatkan `access_token` makan `browser` akan mengirimkan _request_ ke _service_ `registration`, kemudian _service_ melakukan operasi ke `database` dengan mengembalikan data json seperti berikut contohnya:
 
+
 ```json
 {
     "id": 1,
@@ -21,6 +22,7 @@ Berikut arsitektur aplikasi dengan menggunakan konsep microservice:
 ```
 
 Dari json tersebut terdapat _property_ `projectOwenerId`, _property_ tersebut merupakan _primary key_ dari table `user` tetapi objectnya tidak ada di module registration karena mungkin secara database memang satu database tapi secara entity tidak contoh implementasinya seperti berikut:
+
 
 ```java
 // module registration
@@ -57,6 +59,7 @@ public class User{
 4. Setelah mendapatkan data dari `database` tahap selanjutnya adalah mendapatkan object user berdasarkan property `projectOwnerId` dengan melewati protokol http bukan lewat database. kalau lewat database itu sama aja seperti aplikasi monolint (aplikasi web pada umumnya).
 5. Dengan menggunakan konsep ini jadi kita bisa meminimalisir duplikasi karena aplikasi udah di buat secara modular dan dengan tujuan yang jelas tidak campur-aduk jadi satu. Untuk menakses _service_ lain kita bisa menggunakan framework HttpClient yang terkenal di Spring yaitu `RestTemplate` seperti berikut contohnya:
 
+
 ```java
 @GetMapping("/")
 public ResponseEntity responseBack(){
@@ -72,6 +75,7 @@ public ResponseEntity responseBack(){
 ```
 
 6. Setelah itu maka hasilnya seperti berikut:
+
 ```json
 {
     "id": 1,
